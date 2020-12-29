@@ -17,6 +17,7 @@
 #
 #   Version v. 1.0.0
 #
+import logging
 import struct
 
 import Evtx.Evtx as evtx
@@ -27,6 +28,8 @@ from Evtx.Nodes import TemplateNode, TemplateInstanceNode, OpenStartElementNode,
 from Workflow import CommonUtils, NodeUtils
 from Workflow.NodeUtils import logger
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 def modify_value(src_evtx, new_value, value_node, element_node, root_node, record):
     if isinstance(value_node, ConditionalSubstitutionNode) or isinstance(value_node, NormalSubstitutionNode):
@@ -84,7 +87,7 @@ def modify_value(src_evtx, new_value, value_node, element_node, root_node, recor
 
 def repair_offsets(src_evtx, offset_diff, offset_change, element, record, repair_header=True,
                    repair_template_offset=None):
-    logger.info("Offset modification for change at ofs {0}, diff {1}".format(offset_change, offset_diff))
+    logger.debug("Offset modification for change at ofs {0}, diff {1}".format(offset_change, offset_diff))
     # Repair chunk header offsets
     chunk = record.chunk()
 
