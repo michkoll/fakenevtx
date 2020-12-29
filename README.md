@@ -31,7 +31,7 @@ pip install requirements.txt
 
 ## Using
 
-The listing below is a short example how to implement and use FakeNevtx. The example shows a workflow which replaces all ```SubjectUserName``` values in ```4688``` events (Process Creation) with the value ```Evil```.
+The listing below is a short example of how to implement and use FakeNevtx. The example shows a workflow which replaces all ```SubjectUserName``` values in ```4688``` events (Process Creation) with the value ```Evil```.
 
 
 ```python
