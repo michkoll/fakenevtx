@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.6"
+
+install:
+  - sudo apt-get install -y python-lxml
+  - pip install pep8 pytest-cov lxml
+  - pip install -e pythonevtx/
+  - pip install -e .
+
+script:
+  #- find . -name \*.py -exec pep8 --ignore=E501 {} \;
+  - py.test ./tests/ -v --cov=Evtx --cov=Workflow --cov=ModifyElementValueStep --cov=DeleteRecordStep
