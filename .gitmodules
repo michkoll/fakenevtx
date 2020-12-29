@@ -1,0 +1,3 @@
+[submodule "pythonevtx"]
+	path = pythonevtx
+	url = https://github.com/michkoll/python-evtx.git
