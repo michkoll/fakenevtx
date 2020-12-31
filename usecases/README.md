@@ -4,6 +4,9 @@ Please make sure, that all installation requirements (e.g. installed packages in
 
 ## 001 Replace username
 
+This use case replaces a given account name with a new value in all records. All event data field named *TargetUserName* and *SubjectUserName* will be modified.
+Additionally the *TargetUserSid* and *SubjectUserSid* will be changed.
+
 See [001_replace_username.py](001_replace_username.py)
 
 ```shell
@@ -26,4 +29,31 @@ optional arguments:
 | Original      | Result  |
 | ------------- |:-------------:| 
 | ![Use Case 001 - Original](../doc/images/001_original.png "Use Case 001 - Original")     | ![Use Case 001 - Result](../doc/images/001_result.png "Use Case 001 - Result") | 
+
+## 002 Delete logon
+
+This use case deletes all logon records (EventID 4624) for a given account name.
+
+**Note**: Currently all logon records with resident templates will be ignored and not be deleted.
+
+See [002_delete_logon.py](002_delete_logon.py)
+
+```shell
+$ python3 -m usecases.002_delete_logon -h
+usage: 002_delete_logon.py [-h] src dest username
+
+Replace a given username with new value.
+
+positional arguments:
+  src         Path to the source Windows EVTX event log file
+  dest        Path to the source Windows EVTX event log file
+  username    Account name of user
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+
+| Original      | Result  |
+| ------------- |:-------------:| 
+| ![Use Case 002 - Original](../doc/images/002_original.png "Use Case 002 - Original")     | ![Use Case 002 - Result](../doc/images/002_result.png "Use Case 002 - Result") |
 
