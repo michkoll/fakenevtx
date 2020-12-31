@@ -57,3 +57,33 @@ optional arguments:
 | ------------- |:-------------:| 
 | ![Use Case 002 - Original](../doc/images/002_original.png "Use Case 002 - Original")     | ![Use Case 002 - Result](../doc/images/002_result.png "Use Case 002 - Result") |
 
+
+## 003 Change timestamp
+
+This use case changes the time generated timestamp for a given event record ID.
+
+**Note**: Currently the order of the events is not changed.
+
+See [003_change_timestamp.py](003_change_timestamp.py)
+
+```shell
+$ python3 -m usecases.003_change_timestamp -h
+usage: 003_change_timestamp.py [-h] src dest eventrecordid new_timestamp
+
+Changes the time generated of a given record
+
+positional arguments:
+  src            Path to the source Windows EVTX event log file
+  dest           Path to the source Windows EVTX event log file
+  eventrecordid  Event record id
+  new_timestamp  new timestamp for record in format YYYY-mm-dd HH:MM:SS
+
+optional arguments:
+  -h, --help     show this help message and exit
+
+```
+
+| Original      | Result  |
+| ------------- |:-------------:| 
+| ![Use Case 003 - Original](../doc/images/003_original.png "Use Case 003 - Original")     | ![Use Case 003 - Result](../doc/images/003_result.png "Use Case 003 - Result") |
+

@@ -5,7 +5,7 @@ def main(src, dest, username):
     # initialize Workflow
     workflow = Workflow()
 
-    # create subject username filter
+    # create target username and eventid filter
     filter_subj = WorkflowStepFilter()
     filter_subj.add_eventdata_filter("TargetUserName", username)
     filter_subj.add_system_filter("EventID", "4624")
@@ -19,7 +19,7 @@ def main(src, dest, username):
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Replace a given username with new value.")
+    parser = argparse.ArgumentParser(description="Deletes logon events for specified account")
     parser.add_argument("src", type=str, help="Path to the source Windows EVTX event log file")
     parser.add_argument("dest", type=str, help="Path to the source Windows EVTX event log file")
     parser.add_argument("username", type=str, help="Account name of user")
