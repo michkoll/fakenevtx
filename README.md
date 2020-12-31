@@ -1,6 +1,6 @@
 # FakeNevtx
 
-[![Build Status](https://travis-ci.com/michkoll/fakenevtx.png?branch=main)](https://travis-ci.com/michkoll/fakenevtx)
+[![Build Status](https://travis-ci.com/michkoll/fakenevtx.png?branch=master)](https://travis-ci.com/michkoll/fakenevtx)
 
 FakeNevtx is a Python package for manipulating Windows Event Logs (EVTX files). It offers the possibility to change entries in EVTX records and to delete whole records.
 
