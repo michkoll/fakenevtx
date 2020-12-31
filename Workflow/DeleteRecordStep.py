@@ -48,13 +48,11 @@ class DeleteRecordStep(WorkflowStep):
         resident_templates = NodeUtils.has_resident_template(record)
         if len(resident_templates) > 0:
             # TODO implement resident template steps
-            # read EventID from record to be deleted
-            #WriteUtils.prepare_resident_template_moving(self._dest_evtx, record, resident_templates)
-
             # TODO copy template to new position
             # TODO reload EVTX?
 
-            raise NotImplementedError("Records with resident templates cannot be deleted.")
+            logger.error("Records with resident templates cannot be deleted (Record {0})".format(record.record_num()))
+            return
 
         for cur_chunk in fh.chunks():
             for cur_record in cur_chunk.records():
