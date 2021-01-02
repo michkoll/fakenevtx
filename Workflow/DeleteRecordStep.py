@@ -59,7 +59,7 @@ class DeleteRecordStep(WorkflowStep):
                 if cur_record.record_num() > record.record_num():
                     # repair field EventRecordId
                     if self.repair_eventrecord_id:
-                        element, root = FilterUtils.get_elements_from_record(record, elementName="EventRecordID")[0]
+                        element, root = FilterUtils.get_elements_from_record(cur_record, elementName="EventRecordID")[0]
                         old_value_node = NodeUtils.get_element_value(element)
                         old_value = NodeUtils.get_readable_value(old_value_node, root)
                         old, new = WriteUtils.modify_value(self._dest_evtx, int(old_value) - 1, old_value_node, element, root, record)
