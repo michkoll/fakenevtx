@@ -24,7 +24,6 @@ def main(src, dest, old_username, new_username, new_sid):
     workflow.add_step(step_target_sid)
     workflow.add_step(step_target)
 
-
     # start workflow
     workflow.run(src, dest)
 

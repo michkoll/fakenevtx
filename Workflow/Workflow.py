@@ -215,16 +215,41 @@ class WorkflowStepFilter(object):
         self.element_filter = {}
 
     def add_eventdata_filter(self, eventdata_name, element_value=None):
+        """
+        Adds a filter parameter for EventData fields.
+
+        Args:
+            eventdata_name: EventData field name (e.g. TargetUserName)
+            element_value: Optional, if no value is given all records, which include a field with the name given, will be returned
+        """
         self.eventdata_filter[eventdata_name] = element_value
 
     def add_system_filter(self, element_name, element_value):
+        """
+        Adds a filter parameter for SystemData fields
+        Args:
+            element_name: SystemData field name
+            element_value: SystemData field value
+        """
         self.element_filter[element_name] = element_value
 
     def set_min_time_filter(self, min_time):
+        """
+        Sets a minimum timestamp in the filter.
+
+        Args:
+            min_time: datetime object
+        """
         if isinstance(min_time, datetime):
             self.min_time = min_time
 
     def set_max_time_filter(self, max_time):
+        """
+        Set a maximum timestamp in the filter
+
+        Args:
+            max_time: datetime object
+        """
         if isinstance(max_time, datetime):
             self.max_time = max_time
 
