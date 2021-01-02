@@ -60,7 +60,7 @@ optional arguments:
 
 ## 003 Change timestamp
 
-This use case changes the time generated timestamp for a given event record ID.
+This use case changes the TimeGenerated timestamp for a given event record ID. The timestamp can be incremented or decremented.
 
 **Note**: Currently the order of the events is not changed.
 
@@ -68,18 +68,27 @@ See [003_change_timestamp.py](003_change_timestamp.py)
 
 ```shell
 $ python3 -m usecases.003_change_timestamp -h
-usage: 003_change_timestamp.py [-h] src dest eventrecordid new_timestamp
+usage: 003_change_timestamp.py [-h] [--days DAYS] [--hours HOURS]
+                               [--minutes MINUTES] [--seconds SECONDS]
+                               [--microseconds MICROSECONDS]
+                               src dest eventrecordid
 
 Changes the time generated of a given record
 
 positional arguments:
-  src            Path to the source Windows EVTX event log file
-  dest           Path to the source Windows EVTX event log file
-  eventrecordid  Event record id
-  new_timestamp  new timestamp for record in format YYYY-mm-dd HH:MM:SS
+  src                   Path to the source Windows EVTX event log file
+  dest                  Path to the source Windows EVTX event log file
+  eventrecordid         Event record id
 
 optional arguments:
-  -h, --help     show this help message and exit
+  -h, --help            show this help message and exit
+  --days DAYS           Increment/Decrement days
+  --hours HOURS         Increment/Decrement days
+  --minutes MINUTES     Increment/Decrement days
+  --seconds SECONDS     Increment/Decrement days
+  --microseconds MICROSECONDS
+                        Increment/Decrement days
+
 
 ```
 

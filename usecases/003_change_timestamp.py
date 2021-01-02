@@ -1,7 +1,7 @@
-from Workflow.ModifyStep import ModifyTimestampStep
+from Workflow.ModifyStep import ModifyTimestampStep, IncrementTimestampStep
 from Workflow.Workflow import *
 
-def main(src, dest, eventrecordid, new_timestamp):
+def main(src, dest, eventrecordid, days, hours, minutes, seconds, microseconds):
     # initialize Workflow
     workflow = Workflow()
 
@@ -9,7 +9,7 @@ def main(src, dest, eventrecordid, new_timestamp):
     filter_subj = WorkflowStepFilter()
     filter_subj.add_system_filter("EventRecordID", eventrecordid)
     # create and add step to workflow
-    step = ModifyTimestampStep(filter_subj, datetime.datetime.strptime(new_timestamp, "%Y-%m-%d %H:%M:%S"))
+    step = IncrementTimestampStep(filter_subj, days=days, hours=hours, minutes=minutes, seconds=seconds, microseconds=microseconds)
     workflow.add_step(step)
 
     # start workflow
@@ -22,6 +22,10 @@ if __name__ == "__main__":
     parser.add_argument("src", type=str, help="Path to the source Windows EVTX event log file")
     parser.add_argument("dest", type=str, help="Path to the source Windows EVTX event log file")
     parser.add_argument("eventrecordid", type=str, help="Event record id")
-    parser.add_argument("new_timestamp", type=str, help="new timestamp for record in format YYYY-mm-dd HH:MM:SS")
+    parser.add_argument("--days", type=int, default=0, help="Increment/Decrement days")
+    parser.add_argument("--hours", type=int, default=0, help="Increment/Decrement days")
+    parser.add_argument("--minutes", type=int, default=0, help="Increment/Decrement days")
+    parser.add_argument("--seconds", type=int, default=0, help="Increment/Decrement days")
+    parser.add_argument("--microseconds", type=int, default=0, help="Increment/Decrement days")
     args = parser.parse_args()
-    main(args.src, args.dest, args.eventrecordid, args.new_timestamp)
+    main(args.src, args.dest, args.eventrecordid, args.days, args.hours, args.minutes, args.seconds, args.microseconds)
