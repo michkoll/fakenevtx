@@ -115,7 +115,8 @@ class IncrementTimestampStep(ModifyTimestampStep):
         old_value_node = NodeUtils.get_attribute_value(element, self.attribute_name)
         old_value = NodeUtils.get_readable_value(old_value_node, root)
         old_value_dt = datetime.datetime.strptime(old_value, "%Y-%m-%d %H:%M:%S.%f")
-        self.new_value = old_value_dt + self.timedelta
+
+        self.new_value = old_value_dt.replace(tzinfo=datetime.timezone.utc) + self.timedelta
 
         super(IncrementTimestampStep, self).execute(record, element, root)
 
