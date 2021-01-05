@@ -19,19 +19,22 @@ For installation clone this repo with its submodule, install all requirements an
 
 ```shell
 # clone repository
-git clone clone --recurse-submodules https://github.com/michkoll/fakenevtx.git
+git clone --recurse-submodules https://github.com/michkoll/fakenevtx.git
+
+# change to directory
+cd ./fakenevtx/
 
 # create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
 # install requirements
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Using
 
-The listing below is a short example how to implement and use FakeNevtx. The example shows a workflow which replaces all ```SubjectUserName``` values in ```4688``` events (Process Creation) with the value ```Evil```.
+The listing below is a short example of how to implement and use FakeNevtx. The example shows a workflow which replaces all ```SubjectUserName``` values in ```4688``` events (Process Creation) with the value ```Evil```.
 
 
 ```python
