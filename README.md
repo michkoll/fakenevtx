@@ -19,14 +19,16 @@ For installation clone this repo with its submodule, install all requirements an
 
 ```shell
 # clone repository
-git clone clone --recurse-submodules https://github.com/michkoll/fakenevtx.git
+git clone --recurse-submodules https://github.com/michkoll/fakenevtx.git
 
 # create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
 # install requirements
+cd fakenevtx
 pip install requirements.txt
+pip install -e pythonevtx/
 ```
 
 ## Using

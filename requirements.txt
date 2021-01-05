@@ -10,7 +10,6 @@ py==1.10.0
 pyparsing==2.4.7
 pytest==6.2.1
 pytest-cov==2.10.1
--e git+git@github.com:michkoll/python-evtx.git@e1ba3c8b517a93cef7ea4b626aa73f24367e8a31#egg=python_evtx&subdirectory=../../pythonevtx
 pytimeparse==1.1.8
 six==1.15.0
 toml==0.10.2
