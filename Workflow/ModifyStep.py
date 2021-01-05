@@ -17,6 +17,7 @@
 #
 #   Version v. 1.0.0
 #
+import datetime
 import logging
 
 from Workflow import FilterUtils, NodeUtils, WriteUtils
@@ -104,6 +105,20 @@ class ModifyTimestampStep(ModifyAttributeValueStep):
     def __init__(self, evtx_filter, new_value):
         super(ModifyTimestampStep, self).__init__(evtx_filter, new_value, element_name="TimeCreated", attribute_name="SystemTime")
 
+class IncrementTimestampStep(ModifyTimestampStep):
+    def __init__(self, evtx_filter, days=0, hours=0, minutes=0, seconds=0, microseconds=0):
+        super(IncrementTimestampStep, self).__init__(evtx_filter, None)
+
+        self.timedelta = datetime.timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds, microseconds=microseconds)
+
+    def execute(self, record, element, root):
+        old_value_node = NodeUtils.get_attribute_value(element, self.attribute_name)
+        old_value = NodeUtils.get_readable_value(old_value_node, root)
+        old_value_dt = datetime.datetime.strptime(old_value, "%Y-%m-%d %H:%M:%S.%f")
+
+        self.new_value = old_value_dt.replace(tzinfo=datetime.timezone.utc) + self.timedelta
+
+        super(IncrementTimestampStep, self).execute(record, element, root)
 
 class IncrementElementValueStep(ModifyElementValueStep):
     def __init__(self, evtx_filter, new_value, element_name=None, attribute_value=None, attribute_name=None):
