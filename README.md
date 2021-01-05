@@ -21,12 +21,15 @@ For installation clone this repo with its submodule, install all requirements an
 # clone repository
 git clone --recurse-submodules https://github.com/michkoll/fakenevtx.git
 
+# change to directory
+cd ./fakenevtx/
+
 # create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
 # install requirements
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Using
