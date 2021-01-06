@@ -17,7 +17,7 @@ Replace a given username with new value.
 
 positional arguments:
   src           Path to the source Windows EVTX event log file
-  dest          Path to the source Windows EVTX event log file
+  dest          Path to the destination Windows EVTX event log file
   old_username  Old username
   new_username  New username
   new_sid       SID of new user
@@ -46,7 +46,7 @@ Replace a given username with new value.
 
 positional arguments:
   src         Path to the source Windows EVTX event log file
-  dest        Path to the source Windows EVTX event log file
+  dest        Path to the destination Windows EVTX event log file
   username    Account name of user
 
 optional arguments:
@@ -77,7 +77,7 @@ Changes the time generated of a given record
 
 positional arguments:
   src                   Path to the source Windows EVTX event log file
-  dest                  Path to the source Windows EVTX event log file
+  dest                  Path to the destination Windows EVTX event log file
   eventrecordid         Event record id
 
 optional arguments:
