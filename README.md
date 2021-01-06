@@ -27,7 +27,7 @@ source .venv/bin/activate
 
 # install requirements
 cd fakenevtx
-pip install requirements.txt
+pip install -r requirements.txt
 pip install -e pythonevtx/
 ```
 

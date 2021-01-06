@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Deletes logon events for specified account")
     parser.add_argument("src", type=str, help="Path to the source Windows EVTX event log file")
-    parser.add_argument("dest", type=str, help="Path to the source Windows EVTX event log file")
+    parser.add_argument("dest", type=str, help="Path to the destination Windows EVTX event log file")
     parser.add_argument("username", type=str, help="Account name of user")
     args = parser.parse_args()
     main(args.src, args.dest, args.username)

@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Replace a given username with new value.")
     parser.add_argument("src", type=str, help="Path to the source Windows EVTX event log file")
-    parser.add_argument("dest", type=str, help="Path to the source Windows EVTX event log file")
+    parser.add_argument("dest", type=str, help="Path to the destination Windows EVTX event log file")
     parser.add_argument("old_username", type=str, help="Old username")
     parser.add_argument("new_username", type=str, help="New username")
     parser.add_argument("new_sid", type=str, help="SID of new user")

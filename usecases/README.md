@@ -24,6 +24,8 @@ positional arguments:
 
 optional arguments:
   -h, --help    show this help message and exit
+  
+$ python3 -m usecases.001_replace_username usecases/Security_1.evtx usecases/001result.evtx Jon Jane S-1-5-21-1830596930-4165969101-2676038822-1002
 ```
 
 | Original      | Result  |
@@ -51,6 +53,8 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
+  
+$ python3 -m usecases.002_delete_logon usecases/Security_1.evtx usecases/002result.evtx Jon
 ```
 
 | Original      | Result  |
@@ -89,7 +93,7 @@ optional arguments:
   --microseconds MICROSECONDS
                         Increment/Decrement days
 
-
+$ python3 -m usecases.003_change_timestamp usecases/Security_2.evtx usecases/003result.evtx 2104 --days 2 --hours -2
 ```
 
 | Original      | Result  |

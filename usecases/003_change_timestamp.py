@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Changes the time generated of a given record")
     parser.add_argument("src", type=str, help="Path to the source Windows EVTX event log file")
-    parser.add_argument("dest", type=str, help="Path to the source Windows EVTX event log file")
+    parser.add_argument("dest", type=str, help="Path to the destination Windows EVTX event log file")
     parser.add_argument("eventrecordid", type=str, help="Event record id")
     parser.add_argument("--days", type=int, default=0, help="Increment/Decrement days")
     parser.add_argument("--hours", type=int, default=0, help="Increment/Decrement days")
