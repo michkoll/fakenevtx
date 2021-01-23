@@ -107,27 +107,27 @@ This script is a generic usecase for manipulating eventdata fields based on the 
 See [004_change_eventdata_generic.py](004_change_eventdata_generic.py)
 
 ```shell
-$ python3 -m usecases.003_change_timestamp -h
-usage: 003_change_timestamp.py [-h] [--days DAYS] [--hours HOURS]
-                               [--minutes MINUTES] [--seconds SECONDS]
-                               [--microseconds MICROSECONDS]
-                               src dest eventrecordid
+$ python3 -m usecases.004_change_evendata_generic -h
+usage: 004_change_evendata_generic.py [-h] src dest field old_value new_value
 
-Changes the time generated of a given record
+Replace all old values in a specific eventdata field
 
 positional arguments:
-  src                   Path to the source Windows EVTX event log file
-  dest                  Path to the source Windows EVTX event log file
-  eventrecordid         Event record id
+  src         Path to the source Windows EVTX event log file
+  dest        Path to the destination Windows EVTX event log file
+  field       Name of the Eventdata field (e.g. SubjectUserName)
+  old_value   old value
+  new_value   new value
 
 optional arguments:
-  -h, --help            show this help message and exit
-  --days DAYS           Increment/Decrement days
-  --hours HOURS         Increment/Decrement days
-  --minutes MINUTES     Increment/Decrement days
-  --seconds SECONDS     Increment/Decrement days
-  --microseconds MICROSECONDS
-                        Increment/Decrement days
+  -h, --help  show this help message and exit
 
-$ python3 -m usecases.003_change_timestamp usecases/Security_2.evtx usecases/003result.evtx 2104 --days 2 --hours -2
+$ python3 -m usecases.004_change_evendata_generic usecases/Security_2.evtx usecases/004result.evtx SubjectUserName Jon Evil
+2021-01-23 20:26:58,323 [Workflow.Workflow    (_validate           )] [INFO ]  Evtx file verified successfully.
+2021-01-23 20:26:58,323 [Workflow.Workflow    (run                 )] [INFO ]  Starting step ModifyEventdataStep
+2021-01-23 20:26:58,333 [Workflow.FilterUtils (find_records        )] [INFO ]  Found 1 records
+2021-01-23 20:26:58,339 [Workflow.Workflow    (run                 )] [INFO ]  Execute ModifyEventdataStep(new_value=Evil) for record 2
+2021-01-23 20:26:58,348 [Workflow.ModifyStep  (execute             )] [INFO ]  Changed value of element <Data Name=SubjectUserName from Jon to Evil
+2021-01-23 20:26:58,349 [Workflow.Workflow    (check               )] [INFO ]  file header chacksum valid
+
 ```
