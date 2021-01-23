@@ -100,3 +100,34 @@ $ python3 -m usecases.003_change_timestamp usecases/Security_2.evtx usecases/003
 | ------------- |:-------------:| 
 | ![Use Case 003 - Original](../doc/images/003_original.png "Use Case 003 - Original")     | ![Use Case 003 - Result](../doc/images/003_result.png "Use Case 003 - Result") |
 
+## 004 Generic Eventdata Change
+
+This script is a generic usecase for manipulating eventdata fields based on the old value (e.g. replace all SubjectUserName==Jon with a new value)
+
+See [004_change_eventdata_generic.py](004_change_eventdata_generic.py)
+
+```shell
+$ python3 -m usecases.003_change_timestamp -h
+usage: 003_change_timestamp.py [-h] [--days DAYS] [--hours HOURS]
+                               [--minutes MINUTES] [--seconds SECONDS]
+                               [--microseconds MICROSECONDS]
+                               src dest eventrecordid
+
+Changes the time generated of a given record
+
+positional arguments:
+  src                   Path to the source Windows EVTX event log file
+  dest                  Path to the source Windows EVTX event log file
+  eventrecordid         Event record id
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --days DAYS           Increment/Decrement days
+  --hours HOURS         Increment/Decrement days
+  --minutes MINUTES     Increment/Decrement days
+  --seconds SECONDS     Increment/Decrement days
+  --microseconds MICROSECONDS
+                        Increment/Decrement days
+
+$ python3 -m usecases.003_change_timestamp usecases/Security_2.evtx usecases/003result.evtx 2104 --days 2 --hours -2
+```
