@@ -48,13 +48,14 @@ class Workflow(object):
     def __init__(self):
         self.steps = []
 
-    def run(self, source_evtx_path, dest_evtx_path, fast_check=True):
+    def run(self, source_evtx_path, dest_evtx_path, fast_check=True, ignore_errors=True):
         """
         Executes all steps, which were added to the workflow.
 
         :param source_evtx_path: path to source (original) evtx file
         :param dest_evtx_path: path to result evtx file
         :param fast_check: Fast check steps over some inefficient validating steps
+        :param ignore_errors: Ignores unhandled exceptions and tries to continue the workflow
         :return: True if successful, False if error
         """
         # check if source_evtx_path exists, copy source_evtx_path to dest_evtx_path
@@ -65,7 +66,7 @@ class Workflow(object):
         try:
             if self._validate(dest_evtx_path):
                 for step in self.steps:
-                    step.run(dest_evtx_path)
+                    step.run(dest_evtx_path, fast_check=fast_check, ignore_errors=ignore_errors)
                 return True
         except NotImplementedError as e:
             logger.error("NotImplementedError: " + e.args[0])
@@ -117,13 +118,14 @@ class WorkflowStep(metaclass=ABCMeta):
         self._source_evtx = None
         self._dest_evtx = None
 
-    def run(self, dest_evtx, fast_check=True, record_id=None):
+    def run(self, dest_evtx, fast_check=True, record_id=None, ignore_errors=True):
         """
         Executes WorkflowStep. Begins with filtering the records and afterwards executes the step to all found records.
 
         :param dest_evtx: path to result evtx file
         :param fast_check: Fast check steps over some inefficient validating steps
         :param record_id: List of record ids. If provided, this list is used for execution and no filtering is done.
+        :param ignore_errors: Ignores unhandled exceptions and tries to continue the workflow step
         :return:
         """
         logger.info("Starting step {0}".format(self.__class__.__name__))
@@ -138,19 +140,33 @@ class WorkflowStep(metaclass=ABCMeta):
             # new initialization because of changes to mmap in last run
             with evtx.Evtx(dest_evtx, readonly=False) as self._dest_evtx:
                 record = self._dest_evtx.get_record(record_id)
-                nodes = self.get_elements(record)
+                try:
+                    nodes = self.get_elements(record)
 
-                logger.info("Execute {1} for record {0}".format(record_id, self))
-                # executes steps based on manipulating concrete nodes
-                if nodes is not None:
-                    for element, root in nodes:
-                        self.execute(record, element, root)
-                        self.repair_hash()
-                # executes steps based on records
-                else:
-                    self.execute(record)
+                    logger.info("Execute {1} for record {0}".format(record_id, self))
+                    # executes steps based on manipulating concrete nodes
+                    if nodes is not None:
+                        for element, root in nodes:
+                            self.execute(record, element, root)
+                            self.repair_hash()
+                    # executes steps based on records
+                    else:
+                        self.execute(record)
+                except KeyError as e:
+                    # ignore some specific parsing errors (e.g. EventID 4798) until error is fixed
+                    logger.warning("Template {0} could not be found. Skipping record {1} and trying to continue ...".format(str(e), record_id))
+                    logger.debug(e, exc_info=True)
+                except Exception as e:
+                    # quick and dirty error handling for unexcepted parsing or format errors
+                    # activate DEBUG level logging for details
+                    if ignore_errors:
+                        logger.warning("An unhandled exception occured. Skipping record {0} and trying to continue ...".format(record_id))
+                        logger.debug(e, exc_info=True)
+                    else:
+                        logger.warning("An unhandled exception occured at record {0}. Aborting ...".format(record_id))
+                        raise
 
-        # validates the resultung evtx file
+        # validates the result evtx file
         with evtx.Evtx(dest_evtx, readonly=False) as self._dest_evtx:
             self.check(self._dest_evtx, fast_check)
 
@@ -194,7 +210,7 @@ class WorkflowStep(metaclass=ABCMeta):
         if not fh.verify():
             logger.error("file header checksum NOT valid")
         else:
-            logger.info("file header chacksum valid")
+            logger.info("file header checksum valid")
 
         if fast_check is not True:
             # check chunk header
